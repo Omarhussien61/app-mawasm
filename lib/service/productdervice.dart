@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 
 import 'package:shoppingapp/modal/Orders_model.dart';
 import 'package:shoppingapp/modal/Rat_model.dart';
+import 'package:shoppingapp/modal/Servisemodel.dart';
 import 'package:shoppingapp/modal/cart.dart';
 import 'package:shoppingapp/modal/createOrder.dart';
 import 'package:shoppingapp/modal/productmodel.dart';
@@ -112,6 +113,39 @@ class ProductService {
     }
     return completer.future;
   }
+  static Future<List<ServiseModel>> getAllServise(String url) async {
+    List<ServiseModel> products;
+    var dio = Dio();
+    dio.interceptors.add(DioCacheManager(CacheConfig(baseUrl:  APICONFIQ.getproducts+url+APICONFIQ.Key)).interceptor);
+
+    var completer = new Completer<List<ServiseModel>>();
+
+    try {
+      var response = await dio.get(
+        APICONFIQ.getServise+url+APICONFIQ.Key,
+        options: buildCacheOptions(Duration(days: 7), forceRefresh: true),
+      );
+      print(response.data);
+
+      if (response.statusCode == 200) {
+        var data = response.data;
+        var list = data as List;
+
+        completer.complete(products = list
+            .map<ServiseModel>((i) => ServiseModel.fromJson(i))
+            .toList());
+
+      } else {
+        print('Somthing went wrong');
+      }
+    } catch (e) {
+      print(e);
+    } finally {
+      dio.close();
+    }
+    return completer.future;
+  }
+
   static Future<ProductModel> getProduct(int id) async {
     var dio = Dio();
     dio.interceptors.add(DioCacheManager(CacheConfig(baseUrl:
@@ -185,6 +219,8 @@ class ProductService {
         APICONFIQ.getproducts+'&per_page=10'+url+APICONFIQ.Key,
         options: buildCacheOptions(Duration(days: 7), forceRefresh: true),
       );
+
+      print(response.data);
       if (response.statusCode == 200) {
         var data = response.data;
         var list = data as List;

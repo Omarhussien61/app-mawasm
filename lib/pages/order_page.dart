@@ -11,6 +11,7 @@ import 'package:shoppingapp/modal/ConfirmOrder.dart';
 import 'package:shoppingapp/modal/PaymentModel.dart';
 import 'package:shoppingapp/modal/cart.dart';
 import 'package:shoppingapp/modal/createOrder.dart';
+import 'package:shoppingapp/modal/shipping_method.dart';
 import 'package:shoppingapp/pages/credit_cart_page.dart';
 import 'package:shoppingapp/service/OrderService.dart';
 
@@ -49,8 +50,10 @@ class _OrderPageState extends State<OrderPage> {
   int count = 0;
   int countItem = 0;
 
-  int checkboxValueA =0, checkboxValueB=0;
+  int checkboxValueA =0, checkboxValueB=0,checkboxValuec =0;
   List<PaymentModel> PaymentList;
+  List<ShippingMathod> shipping=List<ShippingMathod>();
+
   final scaffoldKey = GlobalKey<ScaffoldState>();
   bool _isLoading = false;
   bool _isedit = false;
@@ -63,6 +66,15 @@ class _OrderPageState extends State<OrderPage> {
 
   @override
   void initState() {
+    shipping.add(new ShippingMathod('الفرع الرئيسى', '0'));
+    shipping.add(new ShippingMathod('طريق لزم', '0'));
+    shipping.add(new ShippingMathod('احد رفيدة: 10.00 ر.س', '10'));
+    shipping.add(new ShippingMathod('الواديين: 15.00 ر.س', '15'));
+    shipping.add(new ShippingMathod('الفرعين: 15.00 ر.س', '15'));
+    shipping.add(new ShippingMathod('سراة عبيدة: 25.00 ر.س', '25'));
+    shipping.add(new ShippingMathod('خميس مشيط: 25.00 ر.س', '25'));
+    shipping.add(new ShippingMathod('ابها: 35.00 ر.س', '35'));
+
     totalbeforedesc=widget.total;
     fetchUserId();
     OrderService.getAllPayment().then((onValue) {
@@ -106,7 +118,7 @@ class _OrderPageState extends State<OrderPage> {
                       padding: const EdgeInsets.only(left: 8.0),
                       child: Text(
                         getTransrlate(context, 'addressShipping'),
-                        style: GoogleFonts.poppins(
+                        style: GoogleFonts.cairo(
                             fontSize: 12, color: Color(0xFF5D6A78)),
                       ),
                     ),
@@ -127,7 +139,7 @@ class _OrderPageState extends State<OrderPage> {
                       padding: const EdgeInsets.only(left: 8.0),
                       child: Text(
                         getTransrlate(context, 'paymentMethod'),
-                        style: GoogleFonts.poppins(
+                        style: GoogleFonts.cairo(
                             fontSize: 12, color: Color(0xFF5D6A78)),
                       ),
                     ),
@@ -183,6 +195,65 @@ class _OrderPageState extends State<OrderPage> {
                         ],
                       ),
                     ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: Text(
+                        getTransrlate(context, 'ShippingMethod'),
+                        style: GoogleFonts.cairo(
+                            fontSize: 12, color: Color(0xFF5D6A78)),
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.all(8),
+                      child: ListView(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        children: <Widget>[
+                          Container(
+                            padding: EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(8),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(.2),
+                                    blurRadius: 6.0, // soften the shadow
+                                    spreadRadius: 0.0, //extend the shadow
+                                    offset: Offset(
+                                      0.0, // Move to right 10  horizontally
+                                      1.0, // Move to bottom 10 Vertically
+                                    ),
+                                  )
+                                ]),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                shipping != null
+                                    ? Container(
+
+                                  child: ListView.builder(
+                                    shrinkWrap: true,
+                                      physics: NeverScrollableScrollPhysics(),
+                                      itemCount: shipping == null
+                                          ? 0
+                                          : shipping.length,
+                                      itemBuilder: (BuildContext context,
+                                          int ind) {
+                                        return buildShippingMethodItem(
+                                            context,
+                                            shipping[ind].name,
+                                            themeColor,
+                                            ind);
+                                      }),
+                                )
+                                    : Center(
+                                    child: CircularProgressIndicator()),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                     phone == null
                         ? Column(
                             children: <Widget>[
@@ -191,7 +262,7 @@ class _OrderPageState extends State<OrderPage> {
                                     left: 8.0, top: 16, bottom: 8),
                                 child: Text(
                                   getTransrlate(context, 'phone'),
-                                  style: GoogleFonts.poppins(
+                                  style: GoogleFonts.cairo(
                                       fontSize: 12, color: Color(0xFF5D6A78)),
                                 ),
                               ),
@@ -247,7 +318,7 @@ class _OrderPageState extends State<OrderPage> {
                                                   hintText:
                                                       getTransrlate(context, 'hintphone'),
                                                   hintStyle:
-                                                      GoogleFonts.poppins(
+                                                      GoogleFonts.cairo(
                                                           fontSize: 12,
                                                           color: textColor)),
                                               onChanged: (String value) {
@@ -269,7 +340,7 @@ class _OrderPageState extends State<OrderPage> {
                           const EdgeInsets.only(left: 8.0, top: 16, bottom: 8),
                       child: Text(
                         getTransrlate(context, 'OrderNote'),
-                        style: GoogleFonts.poppins(
+                        style: GoogleFonts.cairo(
                             fontSize: 12, color: Color(0xFF5D6A78)),
                       ),
                     ),
@@ -310,7 +381,7 @@ class _OrderPageState extends State<OrderPage> {
                                     labelStyle: new TextStyle(
                                         color: const Color(0xFF424242)),
                                     hintText: getTransrlate(context, 'OrderHint'),
-                                    hintStyle: GoogleFonts.poppins(
+                                    hintStyle: GoogleFonts.cairo(
                                         fontSize: 12, color: textColor)),
                               ),
                             ),
@@ -346,7 +417,7 @@ class _OrderPageState extends State<OrderPage> {
                                     labelStyle: new TextStyle(
                                         color: const Color(0xFF424242)),
                                     hintText: getTransrlate(context, 'couponcode'),
-                                    hintStyle: GoogleFonts.poppins(
+                                    hintStyle: GoogleFonts.cairo(
                                         fontSize: 12, color: textColor)),
                               ),
                             ),
@@ -601,7 +672,7 @@ class _OrderPageState extends State<OrderPage> {
             ),
             Text(
               title,
-              style: GoogleFonts.poppins(
+              style: GoogleFonts.cairo(
                   fontSize: 12,
                   fontWeight: FontWeight.w300,
                   color: Color(0xFF5D6A78)),
@@ -611,7 +682,37 @@ class _OrderPageState extends State<OrderPage> {
       ],
     );
   }
-
+  buildShippingMethodItem(
+      BuildContext context, String title, themeColor, int index) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Row(
+          children: <Widget>[
+            Radio<int>(
+              value: index,
+              groupValue: checkboxValuec,
+              activeColor: themeColor.getColor(),
+              focusColor: themeColor.getColor(),
+              hoverColor: themeColor.getColor(),
+              onChanged: (int value) {
+                setState(() {
+                  checkboxValuec = value;
+                });
+              },
+            ),
+            Text(
+              title,
+              style: GoogleFonts.cairo(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w300,
+                  color: Color(0xFF5D6A78)),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
   buildAddressItem(BuildContext context, themeColor) {
     return Container(
       decoration: BoxDecoration(
@@ -702,7 +803,7 @@ class _OrderPageState extends State<OrderPage> {
           Expanded(
               child: Text(
             address_shiping.addres1,
-            style: GoogleFonts.poppins(
+            style: GoogleFonts.cairo(
                 fontSize: 12,
                 fontWeight: FontWeight.w300,
                 color: Color(0xFF5D6A78)),
@@ -747,7 +848,7 @@ class _OrderPageState extends State<OrderPage> {
           email,
           PaymentList[checkboxValueB].id,
           PaymentList[checkboxValueB].title,
-          copon==0?null:code);
+          copon==0?null:code,shipping[checkboxValuec].price);
       if (confirmOrder == null) {
         final snackbar = SnackBar(
           content: Text(getTransrlate(context, 'OrderError')),

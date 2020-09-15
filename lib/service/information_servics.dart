@@ -5,14 +5,16 @@ import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:shoppingapp/modal/about_model.dart';
 import 'package:shoppingapp/modal/contact_model.dart';
 import 'package:shoppingapp/modal/faq_model.dart';
+import 'package:shoppingapp/modal/slider.dart';
 import 'package:shoppingapp/modal/support_model.dart';
 
 class information_service{
 
+  static String Base_url='https://wshalqafs.com/';
 
   static Future<faq_model> get_faq() async {
     var dio = Dio();
-    String URL='https://app.woo2.app/configuration/faq.php';
+    String URL=Base_url+'faq.php';
     dio.interceptors.add(DioCacheManager(
         CacheConfig(baseUrl:URL))
         .interceptor);
@@ -38,7 +40,7 @@ class information_service{
   }
   static Future<about_model> get_about() async {
     var dio = Dio();
-    String URL='https://app.woo2.app/configuration/About.php';
+    String URL=Base_url+'About.php';
     dio.interceptors.add(DioCacheManager(
         CacheConfig(baseUrl:URL))
         .interceptor);
@@ -64,7 +66,7 @@ class information_service{
   }
   static Future<support_model> get_support() async {
     var dio = Dio();
-    String URL='https://app.woo2.app/configuration/Support.php';
+    String URL=Base_url+'Support.php';
     dio.interceptors.add(DioCacheManager(
         CacheConfig(baseUrl:URL))
         .interceptor);
@@ -90,7 +92,7 @@ class information_service{
   }
   static Future<contact_model> get_contact() async {
     var dio = Dio();
-    String URL='https://app.woo2.app/configuration/Contact.php';
+    String URL=Base_url+'Contact.php';
     dio.interceptors.add(DioCacheManager(
         CacheConfig(baseUrl:URL))
         .interceptor);
@@ -114,4 +116,36 @@ class information_service{
     }
     return theam;
   }
+  static Future<List<Slider_model>> get_Slider() async {
+    List<Slider_model> products;
+    String URL="https://mawasmbookstore.com/slider-api/";
+    var dio = Dio();
+    dio.interceptors.add(DioCacheManager(CacheConfig(baseUrl:  URL)).interceptor);
+
+    var completer = new Completer<List<Slider_model>>();
+
+    try {
+      var response = await dio.get(
+        URL,
+        options: buildCacheOptions(Duration(days: 7), forceRefresh: true),
+      );
+      print(response.data);
+      var data = jsonDecode(response.data);
+      var list = data as List;
+      if (response.statusCode == 200) {
+        completer.complete(products = list
+            .map<Slider_model>((i) => Slider_model.fromJson(i))
+            .toList());
+
+      } else {
+        print('Somthing went wrong');
+      }
+    } catch (e) {
+      print(e);
+    } finally {
+      dio.close();
+    }
+    return completer.future;
+  }
+
 }

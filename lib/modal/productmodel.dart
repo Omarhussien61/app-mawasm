@@ -49,13 +49,15 @@ class ProductModel {
       this.variations,
       this.related_ids});
   factory ProductModel.fromJson(Map<String, dynamic> json) {
+
     var list = json['images'] as List;
     var listcats = json['categories'] as List;
 
     var attributeList = json['attributes'] as List;
-    var variationsList =json['variations'].cast<int>();
-    var RealatedList =json['related_ids'].cast<int>() ;
 
+    var variationsList =json['variations'].cast<int>();
+
+    var RealatedList =json['related_ids'].cast<int>() ;
     List<Categories> cats = listcats.map((i) => Categories.fromJson(i)).toList();
 
     var document = parse(json['price_html']);

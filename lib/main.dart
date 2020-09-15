@@ -71,19 +71,16 @@ class _MyAppState extends State<MyApp> {
       onValue!=null?
       setState(() {
       Provider.of<ThemeNotifier>(context).setTheme(onValue);
-      Provider.of<ThemeNotifier>(context).setColor(Color(int.parse(onValue.primaryCoustom)));
-      mainColor=Color(int.parse(onValue.primaryCoustom));
+      Provider.of<ThemeNotifier>(context).setColor(Colors.redAccent);
+      mainColor=Colors.redAccent;
       SharedPreferences.getInstance().then((prefs){
-        prefs.setInt('color', int.parse(onValue.primaryCoustom));
+        prefs.setInt('color', int.parse('0xffE3DA20'));
       });
       }):null;
     });
     APICONFIQ.getNewConfiq().then((onValue){
      onValue!=null?
      setState(() {
-        APICONFIQ.Base_url=onValue.baseUrl;
-        APICONFIQ.consumer_key=onValue.consumerKey;
-        APICONFIQ.consumer_secret=onValue.consumerSecret;
         APICONFIQ.kGoogleApiKey=onValue.kGoogleApiKey;
         Provider.of<ThemeNotifier>(context).setLocal(onValue.local);
         Provider.of<ThemeNotifier>(context).setConfig_model(onValue);
@@ -174,10 +171,9 @@ class _InitPageState extends State<InitPage> {
       isTitleCentered: true,
       elevationAppBar: 0.0,
       backgroundColorAppBar: Color.fromARGB(255, 252, 252, 252),
-      tittleAppBar: CachedNetworkImage(
-        height: 35,
-        imageUrl: themeColor.themeModel.imageAppbar==null?' g':themeColor.themeModel.imageAppbar,
-      ),
+      tittleAppBar: Text('مكتبة مواسم',style:  GoogleFonts.cairo(color: Colors.red,
+          fontSize: 18
+      ),),
       actionsAppBar: <Widget>[
       ],
       backgroundColorMenu: Colors.blueGrey,

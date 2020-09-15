@@ -1,4 +1,4 @@
 import 'package:flutter/material.dart';
 import 'package:shoppingapp/utils/commons/colors.dart';
 
-Color mainColor = colorFromHex("FF2933"); //default main color
+Color mainColor = Colors.redAccent; //default main color

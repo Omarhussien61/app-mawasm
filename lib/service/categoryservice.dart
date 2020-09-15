@@ -43,7 +43,8 @@ class CategoryService {
       if (response.statusCode == 200) {
         var list = response.data as List;
         completer.complete(category =
-            list.map<Category>((i) => Category.fromJson(i)).toList());
+            list.map<Category>((i) => Category.fromJson(i))
+                .where((data) => data.id!=0).toList());
       }
     } catch (e) {
       print(e);
@@ -58,10 +59,13 @@ class CategoryService {
       var response = await dio.get(APICONFIQ.getSubCategories,
         options: buildCacheOptions(Duration(days: 7), forceRefresh: true),
       );
+
       if (response.statusCode == 200) {
+        print(response.data);
+
         var list = response.data as List;
         completer.complete(category = list.map<Category>((i) => Category.fromJson(i))
-            .where((data) => data.parent!=0)
+            .where((data) => data.name!='Uncategorized')
             .toList());
       }
     } catch (e) {

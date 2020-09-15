@@ -17,16 +17,7 @@ class ContactPage extends StatefulWidget {
 }
 
 class _ContactPageState extends State<ContactPage> {
-  contact_model contact;
   @override
-  void initState() {
-    information_service.get_contact().then((value) {
-      setState(() {
-        contact=value;
-      });
-    });
-    super.initState();
-  }
 
 
   final _formKey = GlobalKey<FormState>();
@@ -46,13 +37,12 @@ class _ContactPageState extends State<ContactPage> {
       appBar: buildAppBar(themeColor),
       backgroundColor: greyBackground,
       body: SingleChildScrollView(
-        child:contact==null?Center(child: CircularProgressIndicator()):  Column(
+        child:  Column(
           children: <Widget>[
             Container(
-              color:themeData.primaryColor,
               child: Padding(
                 padding: const EdgeInsets.all(50.0),
-                child: Image.network(contact.image),
+                child: Image.network('https://mawasmbookstore.com/wp-content/uploads/2020/08/1.png'),
               ),
             ),
             Padding(
@@ -78,7 +68,7 @@ class _ContactPageState extends State<ContactPage> {
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: <Widget>[
-                                      Text(contact.phone[0]),
+                                      Text('00966555681125'),
                                       Text(
                                         getTransrlate(context, 'phone'),
                                         style: TextStyle(
@@ -91,7 +81,7 @@ class _ContactPageState extends State<ContactPage> {
                                 ),
                                 InkWell(
                                   onTap: (){
-                                    _launchURL('sms:'+contact.phone[0]);
+                                    _launchURL('sms:'+'00966555681125');
                                   },
                                   child: SizedBox(
                                     child: Icon(
@@ -113,7 +103,7 @@ class _ContactPageState extends State<ContactPage> {
                                         height: 60,
                                       ),
                                       onTap: (){
-                                        _launchURL('tel:'+contact.phone[0]);
+                                        _launchURL('tel:'+'966172282556');
                                       },
                                     )
                                   ],
@@ -128,7 +118,7 @@ class _ContactPageState extends State<ContactPage> {
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: <Widget>[
-                                      Text(contact.phone[1]),
+                                      Text('00966172282556'),
                                       Text(
                                         getTransrlate(context, 'phone'),
                                         style: TextStyle(
@@ -142,7 +132,7 @@ class _ContactPageState extends State<ContactPage> {
                                 SizedBox(
                                   child: InkWell(
                                     onTap: (){
-                                      _launchURL('sms:'+contact.phone[1]);
+                                      _launchURL('sms:'+'00966172282556');
 
                                     },
                                     child: Icon(
@@ -157,7 +147,7 @@ class _ContactPageState extends State<ContactPage> {
                                   children: <Widget>[
                                     InkWell(
                                       onTap: (){
-                                        _launchURL('tel:'+contact.phone[1]);
+                                        _launchURL('tel:'+'00966172282556');
                                       },
                                       child: SizedBox(
                                         child: Icon(
@@ -195,7 +185,7 @@ class _ContactPageState extends State<ContactPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
 
                             children: <Widget>[
-                              Text(contact.email[0]),
+                              Text('mawasmbookstore@gmail.com'),
                               Text(
                                 getTransrlate(context, 'Email'),
                                 style: TextStyle(
@@ -208,39 +198,7 @@ class _ContactPageState extends State<ContactPage> {
                           )),
                           InkWell(
                             onTap: (){
-                              _launchURL('mailto:'+contact.email[0]);
-                            },
-                            child: SizedBox(
-                              child: Icon(
-                                Icons.email,
-                                color: themeData.primaryColor,
-                              ),
-                              height: 60,
-                              width: 60,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Expanded(child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-
-                            children: <Widget>[
-                              Text(contact.email[1]),
-                              Text(
-                                getTransrlate(context, 'Email'),
-                                style: TextStyle(
-                                  fontSize: 11,
-                                  color: Colors.grey,
-                                ),
-                              ),
-
-                            ],
-                          )),
-                          InkWell(
-                            onTap: (){
-                              _launchURL('mailto:'+contact.email[1]);
+                              _launchURL('mailto:'+'mawasmbookstore@gmail.com');
                             },
                             child: SizedBox(
                               child: Icon(

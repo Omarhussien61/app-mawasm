@@ -6,24 +6,27 @@ import 'package:shoppingapp/modal/Config_Model.dart';
 
 class APICONFIQ{
   static String getconfiq='https://app.woo2.app/configuration/get_config_d1.php';
-  static String Base_url='https://d2.woo2.app/';
+  static String Base_url='https://mawasmbookstore.com';
   static String url=Base_url+'/wp-json/wc/v3';
-  static String consumer_key='ck_24b1dd0facc11dd602d29c37caea43f72d68394e';
-  static String consumer_secret='cs_c10599bd4dc55e7f10a1bad03d299a9ad60e0ade';
+  static String consumer_key='ck_d7834df4d8cd70c4d3f54a421ea0a6540e63ae4c';
+  static String consumer_secret='cs_6c4507d1e3bfe569746ae97349008ac42cf6a391';
   static String Key='consumer_key=$consumer_key&consumer_secret=$consumer_secret';
   static String   kGoogleApiKey = "AIzaSyBb0GpBvrtNExsQHDb55DcVVnmUgL85w4U";
 
   //getCategories
-  static String getAllCategories=url+'/products/categories?per_page=100&'+Key;
-  static String getMainCategories=url+'/products/categories?per_page=100&parent=0&'+Key;
+  static String getAllCategories=url+'/products/categories?hide_empty=false&exclude=[15,15]&per_page=100&'+Key;
+  static String getMainCategories=url+'/products/categories?hide_empty=false&exclude=[15,15]&per_page=100&parent=0&'+Key;
+
   static String getSubCategories=url+'/products/categories?per_page=100&'+Key;
 
   //getproducts
-  static String getproducts=url+'/products?per_page=100&';
+  static String getproducts=url+'/products?exclude=[6018,6018]&per_page=100&';
+  static String getServise=Base_url+'/wp-json/wc-product-add-ons/v1/product-add-ons?';
+
   static String getproduct=url+'/products';
 
   //getproductsHomepadge
-  static String getproductsHome=url+'/products?per_page=6&'+Key;
+  static String getproductsHome=url+'/products?exclude=[6018,6018]&per_page=6&'+Key;
 
   //getOrders
   static String getOrder=url+'/orders?'+Key;

@@ -43,14 +43,13 @@ class _SplashScreenState extends State<SplashScreen> {
           statusBarIconBrightness: Brightness.dark),
     );
     return Scaffold(
-      backgroundColor: Provider.of<ThemeNotifier>(context).getColor(),
+    //  backgroundColor: Provider.of<ThemeNotifier>(context).getColor(),
       body:themecolor.config_model!=null? themecolor.config_model.active?Center(
         child: Container(
           height: 400,
           width: ScreenUtil.getWidth(context) /1.7,
           child: CachedNetworkImage(
-            imageUrl:  Provider.of<ThemeNotifier>(context).themeModel==null?
-            '':Provider.of<ThemeNotifier>(context).themeModel.imageSplash,
+            imageUrl:  'https://mawasmbookstore.com/wp-content/uploads/2020/08/1.png',
           ),
         ),
       ):Center(
@@ -63,7 +62,7 @@ class _SplashScreenState extends State<SplashScreen> {
           )):Container(),
     );
   }
-  void _auth() async {
+ void _auth() async {
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     if (null != prefs.getString("token")) {
@@ -76,7 +75,6 @@ class _SplashScreenState extends State<SplashScreen> {
     if (null != prefs.getString("instance")) {
       Nav.routeReplacement(context, InitPage());
     } else {
-
       Provider.of<ThemeNotifier>(context).setLogin(false);
       if(Provider.of<ThemeNotifier>(context).config_model.startScreen){
         Navigator.of(context).pushReplacement(MaterialPageRoute(

@@ -93,7 +93,7 @@ class _SearchCardState extends State<SearchCard> {
                               ),
                               child: CachedNetworkImage(
                                 fit: BoxFit.cover,
-                                imageUrl: (widget.product.images != [])
+                                imageUrl: widget.product.images.isNotEmpty && widget.product.images!=null
                                     ? widget.product.images[0].src
                                     : 'http://arabimagefoundation.com/images/defaultImage.png',
                                 errorWidget: (context, url, error) =>
@@ -120,9 +120,6 @@ class _SearchCardState extends State<SearchCard> {
                           maxLines: 1,
                           minFontSize: 11,
                         ),
-                        SizedBox(
-                          height: 2,
-                        ),
                         Row(
                           children: <Widget>[
                             RatingBar(
@@ -142,9 +139,7 @@ class _SearchCardState extends State<SearchCard> {
                                 print(rating);
                               },
                             ),
-                            SizedBox(
-                              width: 8,
-                            ),
+
                             Text(
                               widget.product.averageRating,
                               style: GoogleFonts.poppins(
@@ -232,7 +227,7 @@ class _SearchCardState extends State<SearchCard> {
                             }
                           },
                           child: Container(
-                            padding: EdgeInsets.only(top: 8, left: 8, bottom: 8, right: 8),
+                            padding: EdgeInsets.only(top: 1, left: 8, bottom: 1, right: 8),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(8),
                                 color: Colors.white,

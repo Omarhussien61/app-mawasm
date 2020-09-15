@@ -665,10 +665,11 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                                         isCountShow: false,
                                       ),
                                       Container(
-                                        height: ScreenUtil.getHeight(context)/15,
-                                        width: ScreenUtil.getWidth(context),
+
                                         child: ListView.builder(
-                                            scrollDirection: Axis.horizontal,
+                                            shrinkWrap: true,
+                                            physics: new NeverScrollableScrollPhysics(),
+
                                             itemCount:  product_variations == null ? 0 : product_variations.length,
                                             itemBuilder: (BuildContext context, int position) {
                                               return Container(
@@ -708,7 +709,7 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                                                                 style:TextStyle(
                                                                   fontFamily: 'El_Messiri',
                                                                   color: Colors.black,
-                                                                  fontSize: ScreenUtil.getHeight(context)/35,
+                                                                  fontSize: ScreenUtil.getHeight(context)/40,
                                                                 ),
                                                               ),
                                                             ),

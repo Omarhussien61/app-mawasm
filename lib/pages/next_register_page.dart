@@ -31,7 +31,7 @@ class _NextRegisterPageState extends State<NextRegisterPage> {
   final _formKey = GlobalKey<FormState>();
   bool passwordVisible = false;
   bool _isLoading = false;
-  String CountryNo='+20';
+  String CountryNo='+996';
   String verificationId;
   String errorMessage = '';
   FirebaseAuth _auth = FirebaseAuth.instance;
@@ -113,8 +113,8 @@ class _NextRegisterPageState extends State<NextRegisterPage> {
                                     });
                                   },
                                   // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
-                                  initialSelection: 'EG',
-                                  favorite: ['SA','EG'],
+                                  initialSelection: 'SA',
+                                  favorite: ['SA'],
                                   // optional. Shows only country name and flag
                                   showCountryOnly: true,
                                   // optional. Shows only country name and flag when popup is closed.
@@ -153,8 +153,28 @@ class _NextRegisterPageState extends State<NextRegisterPage> {
                                       if (_formKey.currentState.validate()) {
                                         _formKey.currentState.save();
                                         setState(() => _isLoading = true);
-                                        verifyPhone();
+                                       // verifyPhone();
+                                        var result =  await LoginService().Register(
+                                            widget.userM );
+                                        if(result.runtimeType==String)
+                                        {
+                                          setState(() => _isLoading = false);
+                                          showAlertDialog(result.toString(),'Alart');
+                                        }
+                                        else
+                                        {
+                                          Navigator.of(context).pop();
 
+                                          SharedPreferences.getInstance().then((prefs){
+                                            prefs.setString('image_url', widget.userM.avatarUrl);
+                                            prefs.setString('user_email', widget.userM.email);
+                                            prefs.setString('user_displayname', widget.userM.firstName);
+                                            prefs.setString('token', widget.userM.avatarUrl);
+                                          });
+                                          setState(() => _isLoading = false);
+                                          Nav.routeReplacement(context, InitPage());
+                                          Provider.of<ThemeNotifier>(context).setLogin(true);
+                                        }
                                       }
                                     },
                                     child: Text(

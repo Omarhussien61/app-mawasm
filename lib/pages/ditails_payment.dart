@@ -94,7 +94,7 @@ DetailScreen(this.confirmOrder);
                                       itemCount: confirmOrder.lineItems==null?0:confirmOrder.lineItems.length,
                                       itemBuilder: (BuildContext context, int index) {
                                         return Table(
-                                          border: TableBorder.all(color: Colors.black),
+                                          border: TableBorder.all(color: Colors.grey),
                                           children: [
                                             TableRow(children: [
                                               Padding(

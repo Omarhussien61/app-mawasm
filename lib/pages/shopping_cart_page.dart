@@ -139,7 +139,7 @@ class HomeWidgetState extends State<ShoppingCartPage>
                 Column(
                   children: [
                     Container(
-                      width: ScreenUtil.getWidth(context) / 2.5,
+                      width: ScreenUtil.getWidth(context) / 2.6,
                       margin: EdgeInsets.only(top: 8, bottom: 8),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,

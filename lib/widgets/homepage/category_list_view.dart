@@ -36,7 +36,7 @@ class CategoriesListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 14, left: 4),
+      margin: EdgeInsets.only(top: 14, left: 4, right: 4),
       height: 95,
       child: Center(
         child:categories==null?Center(child:
@@ -60,11 +60,10 @@ class CategoriesListView extends StatelessWidget {
                 mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
                   Container(
-                    width: 55,
+                    width: 80,
                     height: 63,
                     margin:
                         EdgeInsets.only(top: 4, bottom: 4, left: 12, right: 8),
-                    padding: EdgeInsets.all(12),
                     decoration: BoxDecoration(
                       boxShadow: [
                         BoxShadow(
@@ -77,18 +76,16 @@ class CategoriesListView extends StatelessWidget {
                       color: Colors.white,
                     ),
                     child: Container(
-                      width: 50,
-                      height: 50,
-                      padding: EdgeInsets.all(2),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
+
+                      child:CircleAvatar(
+                        radius: 20,
+                        backgroundImage: CachedNetworkImageProvider(
+                            (categories[index].image==null)?
+                            'http://arabimagefoundation.com/images/defaultImage.png'
+                                :categories[index].image.src,
                       ),
-                      child:  CachedNetworkImage(
-                        imageUrl: (categories[index].image==null)?
-                        'http://arabimagefoundation.com/images/defaultImage.png'
-                            :categories[index].image.src,
-                        errorWidget: (context, url, error) => Icon(Icons.error),
                       ),
+
                     ),
                   ),
                   Container(

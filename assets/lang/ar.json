@@ -121,6 +121,8 @@
   "password": "كلمة المرور",
   "Required": "أدخل الأتى",
   "paymentMethod": "طريقة الدفع",
+  "ShippingMethod": "طريقة الشحن",
+
   "addressShipping": "عنوان الشحن",
   "totalOrder": "إجمالى الطلب ",
   "totalShipping": "إجمالى الشحن",

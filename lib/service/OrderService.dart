@@ -134,14 +134,13 @@ class OrderService {
   static Future<ConfirmOrder> createorder(List<LineItems> items,
       String custId,String city,String address,String phone,
       String name,String country,String email,
-  String paymentMethod,String paymentMethodTitle,String coponCode) async {
+  String paymentMethod,String paymentMethodTitle,String coponCode,String ship) async {
     SQL_Helper helper = new SQL_Helper();
     createOrder order;
     Billing billing;
     Shippings shipping;
     List<ShippingLines>  shippingLines=new List<ShippingLines> ();
     List<coupon_lines>  coupon_line=new List<coupon_lines> ();
-
     billing=new Billing(
         firstName: name,
         address2: '',
@@ -162,7 +161,7 @@ class OrderService {
         lastName: '',
         firstName: name,
         address2: '');
-    shippingLines.add(new ShippingLines(methodId: 'flat_rate',methodTitle: "سعر ثابت",total:'100'));
+    shippingLines.add(new ShippingLines(methodId: 'flat_rate',methodTitle: "سعر ثابت",total:'$ship'));
     coupon_line.add(new coupon_lines(code: coponCode));
     order=new createOrder(
       paymentMethod: paymentMethod,

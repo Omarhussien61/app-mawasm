@@ -47,7 +47,7 @@ class _AboutPageState extends State<AboutPage> {
               height: ScreenUtil.getHeight(context)/4,
               fit: BoxFit.contain),
             ),
-            aboutItem(about.item1[0],about.item1[1],about.item1[2]),
+            aboutItem('966172282556',about.item1[1],about.item1[2]),
 
           ],
 

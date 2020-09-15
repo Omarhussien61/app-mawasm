@@ -31,7 +31,7 @@ class _RegisterFormState extends State<RegisterForm> {
   bool PhoneStatue=false;
   bool passwordVisible = false;
   bool _isLoading = false;
-  String CountryNo='+20';
+  String CountryNo='+996';
   String verificationId;
   String errorMessage = '';
   FirebaseAuth _auth = FirebaseAuth.instance;
@@ -124,8 +124,8 @@ class _RegisterFormState extends State<RegisterForm> {
                           });
                         },
                         // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
-                        initialSelection: 'EG',
-                        favorite: ['SA','EG'],
+                        initialSelection: 'SA',
+                        favorite: ['SA'],
                         // optional. Shows only country name and flag
                         showCountryOnly: true,
                         // optional. Shows only country name and flag when popup is closed.
@@ -209,9 +209,7 @@ class _RegisterFormState extends State<RegisterForm> {
                         if (_formKey.currentState.validate()) {
                           _formKey.currentState.save();
                           setState(() => _isLoading = true);
-                          PhoneStatue?
-                          register():
-                          verifyPhone();
+                          register();
                         }
                       },
                       child: Text(

@@ -90,13 +90,15 @@ class LoginService {
       'first_name': model.firstName,
       'last_name': model.lastName,
       'username': model.username,
-      'password': model.password,
+      'password': model.password==null?' ': model.password,
       "meta_data": metaData
     });
     var bodyWithoutPassword = json.encode({
       'email': model.email,
       'first_name': model.firstName,
       'last_name': model.lastName,
+      'password': model.password==null?' ': model.password,
+
       'username': model.username,
       "meta_data": metaData
     });

@@ -9,12 +9,15 @@ import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:shoppingapp/main.dart';
 import 'package:shoppingapp/pages/FAQ.dart';
+import 'package:shoppingapp/pages/Servise_page.dart';
 import 'package:shoppingapp/pages/about_page.dart';
 import 'package:shoppingapp/pages/change_password_page.dart';
 import 'package:shoppingapp/pages/contact_page.dart';
 import 'package:shoppingapp/pages/Support_page.dart';
 import 'package:shoppingapp/pages/login_page.dart';
+import 'package:shoppingapp/pages/printing.dart';
 import 'package:shoppingapp/pages/profile_settings_page.dart';
+import 'package:shoppingapp/pages/search_page.dart';
 import 'package:shoppingapp/utils/commons/AddFavorite.dart';
 import 'package:shoppingapp/utils/commons/show_dialog.dart';
 import 'package:shoppingapp/utils/util/LanguageTranslated.dart';
@@ -122,7 +125,7 @@ class _HiddenMenuState extends State<HiddenMenu> {
               ListTile(
                 title: Text(
                   name == null ? 'user' : name + ' ' + last,
-                  style: GoogleFonts.poppins(color: Colors.white),
+                  style: GoogleFonts.cairo(color: Colors.white),
                 ),
                 leading: CircleAvatar(
                     radius: 20,
@@ -234,9 +237,9 @@ class _HiddenMenuState extends State<HiddenMenu> {
                             color: Colors.white,
                           ),
                           name: getTransrlate(context, 'ProfileSettings'),
-                          baseStyle: GoogleFonts.poppins(
-                              color: Colors.white.withOpacity(0.6),
-                              fontSize: 19.0),
+                          baseStyle: GoogleFonts.cairo(
+                              color: Colors.white,
+                              fontSize: 20.0),
                           colorLineSelected: Colors.orange,
                         ),
                       ),
@@ -263,27 +266,9 @@ class _HiddenMenuState extends State<HiddenMenu> {
                               Provider.of<ThemeNotifier>(context).local == 'ar'
                                   ? 'English'
                                   : 'عربى',
-                          baseStyle: GoogleFonts.poppins(
+                          baseStyle: GoogleFonts.cairo(
                               color: Colors.white.withOpacity(0.6),
                               fontSize: 19.0),
-                          colorLineSelected: Colors.orange,
-                        ),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          Nav.route(context, FaqPage());
-                        },
-                        child: ItemHiddenMenu(
-                          icon: Icon(
-                            Icons.question_answer,
-                            size: 19,
-                            color: Colors.white,
-                          ),
-                          name: getTransrlate(context, 'FAQ'),
-                          baseStyle: GoogleFonts.poppins(
-                              color: Colors.white.withOpacity(0.6),
-                              fontSize: 19.0,
-                              fontWeight: FontWeight.w200),
                           colorLineSelected: Colors.orange,
                         ),
                       ),
@@ -294,33 +279,52 @@ class _HiddenMenuState extends State<HiddenMenu> {
                             size: 19,
                             color: Colors.white,
                           ),
-                          name: getTransrlate(context, 'About'),
-                          baseStyle: GoogleFonts.poppins(
+                          name: 'منتجات',
+                          baseStyle: GoogleFonts.cairo(
                               color: Colors.white.withOpacity(0.6),
                               fontSize: 19.0),
                           colorLineSelected: Colors.orange,
                         ),
                         onTap: () {
-                          Nav.route(context, AboutPage());
+                          Nav.route(context, SearchPage());
                         },
                       ),
                       InkWell(
                         child: ItemHiddenMenu(
                           icon: Icon(
-                            Feather.clock,
+                            Feather.printer,
                             size: 19,
                             color: Colors.white,
                           ),
-                          name: getTransrlate(context, 'Support'),
-                          baseStyle: GoogleFonts.poppins(
+                          name: "الطباعة",
+                          baseStyle: GoogleFonts.cairo(
                               color: Colors.white.withOpacity(0.6),
                               fontSize: 19.0),
                           colorLineSelected: Colors.orange,
                         ),
                         onTap: () {
-                          Nav.route(context, SupportPage());
+                          Nav.route(context, Printing());
                         },
                       ),
+                      InkWell(
+                        onTap: () {
+                          Nav.route(context, Servise_Page());
+                        },
+                        child: ItemHiddenMenu(
+                          icon: Icon(
+                            Icons.question_answer,
+                            size: 19,
+                            color: Colors.white,
+                          ),
+                          name: "الخدمات الالكترونية",
+                          baseStyle: GoogleFonts.cairo(
+                              color: Colors.white.withOpacity(0.6),
+                              fontSize: 19.0,
+                              fontWeight: FontWeight.w200),
+                          colorLineSelected: Colors.orange,
+                        ),
+                      ),
+
                       InkWell(
                         onTap: () {
                           Nav.route(context, ContactPage());
@@ -332,7 +336,7 @@ class _HiddenMenuState extends State<HiddenMenu> {
                             color: Colors.white,
                           ),
                           name: getTransrlate(context, 'Contact'),
-                          baseStyle: GoogleFonts.poppins(
+                          baseStyle: GoogleFonts.cairo(
                               color: Colors.white.withOpacity(0.6),
                               fontSize: 19.0,
                               fontWeight: FontWeight.w200),
@@ -370,7 +374,7 @@ class _HiddenMenuState extends State<HiddenMenu> {
                                   false
                               ? getTransrlate(context, 'login')
                               : getTransrlate(context, 'Logout'),
-                          baseStyle: GoogleFonts.poppins(
+                          baseStyle: GoogleFonts.cairo(
                               color: Colors.white.withOpacity(0.6),
                               fontSize: 19.0,
                               fontWeight: FontWeight.w200),

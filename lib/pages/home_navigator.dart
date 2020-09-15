@@ -5,11 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
+import 'package:shoppingapp/modal/slider.dart';
 import 'package:shoppingapp/pages/category_page.dart';
 import 'package:shoppingapp/pages/favorite_products_page.dart';
 import 'package:shoppingapp/pages/home_page.dart';
 import 'package:shoppingapp/pages/my_profile_page.dart';
 import 'package:shoppingapp/pages/shopping_cart_page.dart';
+import 'package:shoppingapp/service/information_servics.dart';
 import 'package:shoppingapp/service/productdervice.dart';
 import 'package:shoppingapp/utils/navigator.dart';
 import 'package:shoppingapp/utils/theme_notifier.dart';
@@ -35,7 +37,7 @@ class _HomeNavigatorState extends State<HomeNavigator> {
   SQL_Helper helper = new SQL_Helper();
   SQL_Rercent sql_rercent = new SQL_Rercent();
   String contVeiw;
-
+  List<Slider_model> slider;
 
 
   @override
@@ -44,29 +46,11 @@ class _HomeNavigatorState extends State<HomeNavigator> {
 
 
   }
-  updateListView(){
-    final Future<Database> db = helper.initializedDatabase();
-    db.then((database) {
-      Future<List<Recentview>> ProductView = sql_rercent.getRecentViewList();
-      ProductView.then((theList) {
-        theList!=null||theList.isNotEmpty?
-        setState(() {
-          contVeiw=theList[0].id.toString();
-          for (int i = 1; i <= theList.length-1 ; i++){
-            //items.add(this.recents[i].id.toString());
-            contVeiw=contVeiw+','+theList[i].id.toString();
-          }
-          productview=ProductService.getRecentviewProducts(contVeiw);
-        }):0;
-      });
-    });
-
-  }
   @override
   Widget build(BuildContext context) {
     final themeColor = Provider.of<ThemeNotifier>(context);
     List<Widget> _pages = [
-      HomePage(maincat,productDiscount,productNew,moreSale,productview,product_low_priced),
+      HomePage(maincat,productDiscount,productNew,moreSale,productview,product_low_priced,slider),
       CategoryPage(),
       ShoppingCartPage(),
       FavoriteProductsPage(),
@@ -92,7 +76,7 @@ class _HomeNavigatorState extends State<HomeNavigator> {
           style: TabStyle.fixedCircle,
           items: <TabItem>[
             TabItem(icon: Feather.home, title: ''),
-            TabItem(icon: Feather.search, title: ''),
+            TabItem(icon: Icons.apps, title: ''),
             TabItem(icon: bottomCenterItem(themeColor), title: ''),
             TabItem(icon: Feather.heart, title: ''),
             TabItem(icon: Feather.user, title: ''),
@@ -143,6 +127,12 @@ class _HomeNavigatorState extends State<HomeNavigator> {
   }
 
    getListData() async {
+     information_service.get_Slider().then((value) {
+       setState(() {
+         slider=value;
+       });
+       return true;
+     });
     CategoryService().getMainCategory().then((value) {
       setState(() {
         maincat=value;
@@ -153,7 +143,6 @@ class _HomeNavigatorState extends State<HomeNavigator> {
       });
       return true;
     });
-    updateListView();
 
   }
 
